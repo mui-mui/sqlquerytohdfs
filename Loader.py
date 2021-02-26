@@ -14,6 +14,7 @@ class Loader(AbstractProcessHandler):
         self.sparkActive = SparkActive.GetOrCreate()
 
     def Handle(self, request):
+        print(f"Execute query: {self.options.query}")
         request.Body = self.sparkActive.read\
             .format("jdbc")\
             .option("url", self.options.connectionString)\

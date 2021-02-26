@@ -34,16 +34,18 @@ class WriteOption:
     """
     Класс опций писателя данных
     """
-    serverHdfs: str
+    webHdfsUrl: str
     userHdfs: str
     dirHdfs: str
     filename: str
+    metadataKey: str  # колонка из df, данные из которой будут записаны в метаданные
 
     @classmethod
-    def Create(cls, webHdfsUrl: str, userHdfs: str, dirHdfs: str, filename: str):
+    def Create(cls, webHdfsUrl: str, userHdfs: str, dirHdfs: str, filename: str, metadataKey: str):
         o = cls()
         o.webHdfsUrl = webHdfsUrl
         o.userHdfs = userHdfs
         o.dirHdfs = dirHdfs
         o.filename = filename
+        o.metadataKey = metadataKey
         return o

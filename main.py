@@ -14,6 +14,7 @@ if __name__ == '__main__':
     dirHdfs = sys.argv[5]
     filename = sys.argv[6]
     scriptPath = sys.argv[7]
+    metadataKey = sys.argv[8]
 
     # Настройка логгирования
     logging.basicConfig(level=logging.INFO,
@@ -37,7 +38,8 @@ if __name__ == '__main__':
             webHdfsUrl=webHdfsUrl,
             userHdfs=userHdfs,
             dirHdfs=dirHdfs,
-            filename=filename
+            filename=filename,
+            metadataKey=metadataKey
         ))
 
     loaderHandler\

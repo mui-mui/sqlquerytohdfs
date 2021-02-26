@@ -16,7 +16,7 @@ class Writer(AbstractProcessHandler):
 
     def Handle(self, request: ProcessMessage):
         resp = requests.put(
-            f"{self.options.serverHdfs}"
+            f"{self.options.webHdfsUrl}"
             f"{self.options.dirHdfs}/"
             f"{self.options.filename}.parquet?user.name={self.options.userHdfs}&op=CREATE&permission=0777", allow_redirects=False)
         with io.BytesIO() as parquetFileIO:
@@ -24,7 +24,7 @@ class Writer(AbstractProcessHandler):
             parquetFileIO.seek(0)
             newParquetFileIO = MetadataAdjusterHelper.AddMetadataParquet(
                 parquetFileIO=parquetFileIO,
-                customMetadata={"PLATE_ID": request.Body["PLATE_ID"].values}
+                customMetadata={"PLATE_ID": request.Body[self.options.metadataKey].values.tolist()}
             )
         with newParquetFileIO as f:
             requests.put(resp.headers["Location"], data=f.read())
